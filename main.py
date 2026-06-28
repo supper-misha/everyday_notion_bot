@@ -2,6 +2,7 @@ import config
 import routin
 import tg_routin
 import scheduler
+import notion_calendar
 from config import bot
 from scheduler import start_scheduler
 

@@ -1,10 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 from tg_routin import create_routin, check_and_notify_unchecked_tasks
-
-
-def test_job():
-    print("aboba")
+from notion_calendar import send_tomorrow_reminders
 
 
 def setup_scheduler():
@@ -48,10 +45,12 @@ def setup_scheduler():
         trigger=CronTrigger(hour=22, minute=5, timezone="Europe/Moscow"),
         args=['evening']
     )
+    # Напоминание о завтрашних задачах
     scheduler.add_job(
-        test_job,
-        trigger=CronTrigger(minute='*', timezone="Europe/Moscow")
+        send_tomorrow_reminders,
+        trigger=CronTrigger(hour=19, minute=0, timezone="Europe/Moscow")
     )
+
     # Здесь можно добавить другие задачи вручную
     # scheduler.add_job(
     #     another_function,
