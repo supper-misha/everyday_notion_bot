@@ -1,6 +1,7 @@
 from config import bot, ID
 from routin import create_routin_record, get_unchecked_tasks
 from datetime import datetime
+import pytz
 
 ROUTIN_NAMES = {
     'morning': 'УТРО 🌅',
@@ -16,7 +17,7 @@ def main(message):
 
 @bot.message_handler(commands=["test"])
 def test(message):
-    check_and_notify_unchecked_tasks("morning")
+    check_and_notify_unchecked_tasks("75_soft")
 
 
 def create_routin(routin_name):
@@ -63,7 +64,8 @@ def check_and_notify_unchecked_tasks(routin_name):
 
         # Если есть невыполненные задачи
         if unchecked_tasks:
-            current_time = datetime.now().strftime("%H:%M")
+            tz = pytz.timezone('Europe/Moscow')  # Замените на ваш часовой пояс
+            current_time = datetime.now(tz).strftime("%H:%M")
 
             # Формируем сообщение
             message = f"⚠️ Уже <b>{current_time}</b>, а в <b>{display_name}</b> не выполнены задачи:\n"

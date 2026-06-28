@@ -13,36 +13,42 @@ def setup_scheduler():
     scheduler.add_job(
         create_routin,
         trigger=CronTrigger(hour=6, minute=0),
-        args=['75_soft']
+        args=['75_soft'],
+        timezone="Europe/Moscow"
     )
 
     # Утренняя рутина в 6:05
     scheduler.add_job(
         create_routin,
         trigger=CronTrigger(hour=6, minute=5),
-        args=['morning']
+        args=['morning'],
+        timezone="Europe/Moscow"
     )
     # Вечерняя рутина
     scheduler.add_job(
         create_routin,
         trigger=CronTrigger(hour=20, minute=5),
-        args=['evening']
+        args=['evening'],
+        timezone="Europe/Moscow"
     )
     #
     scheduler.add_job(
         check_and_notify_unchecked_tasks,
         trigger=CronTrigger(hour=10, minute=5),
-        args=['morning']
+        args=['morning'],
+        timezone="Europe/Moscow"
     )
     scheduler.add_job(
         check_and_notify_unchecked_tasks,
         trigger=CronTrigger(hour=18, minute=5),
-        args=['75_soft']
+        args=['75_soft'],
+        timezone="Europe/Moscow"
     )
     scheduler.add_job(
         check_and_notify_unchecked_tasks,
         trigger=CronTrigger(hour=22, minute=5),
-        args=['evening']
+        args=['evening'],
+        timezone="Europe/Moscow"
     )
     # Здесь можно добавить другие задачи вручную
     # scheduler.add_job(
